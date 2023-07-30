@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "april-adf"
+		},
+		"AzureDatabricks1_accessToken": {
+			"value": ""
+		},
+		"adls_conn_accountKey": {
+			"value": ""
+		},
+		"connectToBlob_connectionString": {
+			"value": ""
+		},
+		"local_db_to_adf_connectionString": {
+			"value": "Integrated Security=True;Data Source=LAPTOP-JA8I25JM\\SQLEXPRESS;Initial Catalog=AdventureWorks2019"
+		},
+		"local_db_to_adf_password": {
+			"value": ""
+		},
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"value": "0701-032527-d3cttlbm"
+		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"value": "https://mysecrets2023.vault.azure.net/"
+		},
+		"adls_conn_properties_typeProperties_url": {
+			"value": "https://adlsrekindle.dfs.core.windows.net/"
+		},
+		"local_db_to_adf_properties_typeProperties_userName": {
+			"value": "babi"
+		}
+	}
+}

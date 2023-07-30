@@ -1,0 +1,126 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "april-adf"
+		},
+		"AzureDatabricks1_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'AzureDatabricks1'"
+		},
+		"adls_conn_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'adls_conn'"
+		},
+		"connectToBlob_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'connectToBlob'"
+		},
+		"local_db_to_adf_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'local_db_to_adf'",
+			"defaultValue": "Integrated Security=True;Data Source=LAPTOP-JA8I25JM\\SQLEXPRESS;Initial Catalog=AdventureWorks2019"
+		},
+		"local_db_to_adf_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'local_db_to_adf'"
+		},
+		"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+			"type": "string",
+			"defaultValue": "0701-032527-d3cttlbm"
+		},
+		"AzureKeyVault1_properties_typeProperties_baseUrl": {
+			"type": "string",
+			"defaultValue": "https://mysecrets2023.vault.azure.net/"
+		},
+		"adls_conn_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://adlsrekindle.dfs.core.windows.net/"
+		},
+		"local_db_to_adf_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "babi"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "april-adf_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"AzureDatabricks1_accessToken": {
+						"value": "[parameters('AzureDatabricks1_accessToken')]"
+					},
+					"adls_conn_accountKey": {
+						"value": "[parameters('adls_conn_accountKey')]"
+					},
+					"connectToBlob_connectionString": {
+						"value": "[parameters('connectToBlob_connectionString')]"
+					},
+					"local_db_to_adf_connectionString": {
+						"value": "[parameters('local_db_to_adf_connectionString')]"
+					},
+					"local_db_to_adf_password": {
+						"value": "[parameters('local_db_to_adf_password')]"
+					},
+					"AzureDatabricks1_properties_typeProperties_existingClusterId": {
+						"value": "[parameters('AzureDatabricks1_properties_typeProperties_existingClusterId')]"
+					},
+					"AzureKeyVault1_properties_typeProperties_baseUrl": {
+						"value": "[parameters('AzureKeyVault1_properties_typeProperties_baseUrl')]"
+					},
+					"adls_conn_properties_typeProperties_url": {
+						"value": "[parameters('adls_conn_properties_typeProperties_url')]"
+					},
+					"local_db_to_adf_properties_typeProperties_userName": {
+						"value": "[parameters('local_db_to_adf_properties_typeProperties_userName')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "april-adf_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'april-adf_ArmTemplate_0')]"
+			]
+		}
+	]
+}
