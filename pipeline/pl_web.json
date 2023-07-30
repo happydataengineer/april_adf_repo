@@ -1,0 +1,138 @@
+{
+	"name": "pl_web",
+	"properties": {
+		"activities": [
+			{
+				"name": "Web1",
+				"type": "WebActivity",
+				"dependsOn": [
+					{
+						"activity": "Copy data from db to adls",
+						"dependencyConditions": [
+							"Failed"
+						]
+					}
+				],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"url": "https://rktech-laap.azurewebsites.net:443/api/adf_emil/triggers/When_a_HTTP_request_is_received/invoke?api-version=2022-05-01&sp=%2Ftriggers%2FWhen_a_HTTP_request_is_received%2Frun&sv=1.0&sig=j81-QMsZOeZnPx7IKqzyAvxIAYCL_ZavLJ24Xc6yoAU",
+					"method": "POST",
+					"body": {
+						"message": "@{activity('Copy data from db to adls').error.Message}",
+						"dataFactoryName": "@{pipeline().DataFactory}",
+						"pipelineName": "@{pipeline().Pipeline}",
+						"receiver": "@{pipeline().globalParameters.globAL_REC}"
+					}
+				}
+			},
+			{
+				"name": "Copy data from db to adls",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "SqlServerSource",
+						"additionalColumns": [
+							{
+								"name": "source_name",
+								"value": "EZP"
+							}
+						],
+						"sqlReaderQuery": "select * from dbo.student where roll_num=1",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "DelimitedTextSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings"
+						},
+						"formatSettings": {
+							"type": "DelimitedTextWriteSettings",
+							"quoteAllText": true,
+							"fileExtension": ".txt"
+						}
+					},
+					"enableStaging": false,
+					"enableSkipIncompatibleRow": true,
+					"logSettings": {
+						"enableCopyActivityLog": true,
+						"copyActivityLogSettings": {
+							"logLevel": "Warning",
+							"enableReliableLogging": false
+						},
+						"logLocationSettings": {
+							"linkedServiceName": {
+								"referenceName": "adls_conn",
+								"type": "LinkedServiceReference"
+							}
+						}
+					},
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "roll_num",
+									"precision": 10
+								},
+								"sink": {
+									"name": "r_num"
+								}
+							},
+							{
+								"source": {
+									"name": "sname"
+								},
+								"sink": {
+									"name": "student_name"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SqlServerTable1",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "studunt_ds",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"parameters": {
+			"rec1": {
+				"type": "string",
+				"defaultValue": "nijithanair94@gmail.com"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-07-08T05:29:37Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,17 @@
+{
+	"name": "april-adf",
+	"properties": {
+		"globalParameters": {
+			"globAL_REC": {
+				"type": "string",
+				"value": "Vamshireddy.kottinti@gmail.com"
+			}
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "11f0a84b-6e57-4591-8986-89d0bb0db766",
+		"tenantId": "0086f128-a4d5-4551-ba4c-a0829dabdff3"
+	}
+}

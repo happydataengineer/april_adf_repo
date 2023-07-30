@@ -1,0 +1,30 @@
+{
+	"name": "ds_meta_Data_tab_file",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "adls_conn",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "data_cf9c281f-962c-4331-8069-00623313faff_9d89328a-f2c0-4578-933a-a91516d60af4.txt",
+				"folderPath": "20230702",
+				"fileSystem": "output"
+			},
+			"columnDelimiter": "\t",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "r_num\tstudent_name",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

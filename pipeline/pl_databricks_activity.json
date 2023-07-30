@@ -1,0 +1,62 @@
+{
+	"name": "pl_databricks_activity",
+	"properties": {
+		"activities": [
+			{
+				"name": "PassoCutomerdbdetails",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Repos/samplelearner007@outlook.com/databricks-happyde/pbi_101_dataconn",
+					"baseParameters": {
+						"database": "customer_prod"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			},
+			{
+				"name": "table_name",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "PassoCutomerdbdetails",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "table_name",
+					"value": {
+						"value": "@activity('PassoCutomerdbdetails').output.runOutput",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"table_name": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-07-01T04:25:27Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,40 @@
+{
+	"name": "pl_until",
+	"properties": {
+		"activities": [
+			{
+				"name": "Until1",
+				"type": "Until",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"expression": {
+						"value": "@equals(variables('subject'),'maths')",
+						"type": "Expression"
+					},
+					"activities": [
+						{
+							"name": "Wait1",
+							"type": "Wait",
+							"dependsOn": [],
+							"userProperties": [],
+							"typeProperties": {
+								"waitTimeInSeconds": 1
+							}
+						}
+					],
+					"timeout": "0.12:00:00"
+				}
+			}
+		],
+		"variables": {
+			"subject": {
+				"type": "String",
+				"defaultValue": "maths2"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-07-09T04:15:46Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

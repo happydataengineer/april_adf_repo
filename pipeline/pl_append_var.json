@@ -1,0 +1,66 @@
+{
+	"name": "pl_append_var",
+	"properties": {
+		"activities": [
+			{
+				"name": "Append variable1",
+				"type": "AppendVariable",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "subject_list",
+					"value": {
+						"value": "@variables('subject1')",
+						"type": "Expression"
+					}
+				}
+			},
+			{
+				"name": "Set variable1",
+				"type": "SetVariable",
+				"dependsOn": [
+					{
+						"activity": "Append variable1",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"policy": {
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"variableName": "final_list",
+					"value": {
+						"value": "@variables('subject_list')",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"subject1": {
+				"type": "String",
+				"defaultValue": "Maths"
+			},
+			"subject_list": {
+				"type": "Array",
+				"defaultValue": [
+					"english",
+					"science"
+				]
+			},
+			"final_list": {
+				"type": "Array",
+				"defaultValue": [
+					"history"
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-07-02T03:28:04Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

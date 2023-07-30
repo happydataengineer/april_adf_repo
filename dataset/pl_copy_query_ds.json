@@ -1,0 +1,19 @@
+{
+	"name": "pl_copy_query_ds",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "connectToBlob",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Binary",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "query.txt",
+				"container": "input"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

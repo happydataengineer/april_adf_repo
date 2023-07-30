@@ -1,0 +1,36 @@
+{
+	"name": "pl_filter",
+	"properties": {
+		"activities": [
+			{
+				"name": "Filter1",
+				"type": "Filter",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@variables('Annimal')",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "@not(equals(item(),'Cow'))",
+						"type": "Expression"
+					}
+				}
+			}
+		],
+		"variables": {
+			"Annimal": {
+				"type": "Array",
+				"defaultValue": [
+					"Monkey",
+					"Lion",
+					"Cow"
+				]
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2023-07-09T02:47:34Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}
