@@ -1,5 +1,5 @@
 {
-	"name": "Failed_activiy",
+	"name": "Failed_activiy_desc",
 	"properties": {
 		"description": "Azure/Auto Resolbve IR\nSelf hosted IR\nAzure SSIS",
 		"activities": [
